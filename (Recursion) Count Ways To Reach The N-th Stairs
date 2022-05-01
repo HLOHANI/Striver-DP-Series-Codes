@@ -1,0 +1,13 @@
+int recur(long long n)
+{
+	if(n==0)return 1;
+	if(n==1)return 1;
+	int jump1=recur(n-1);
+	int jump2=recur(n-2);
+	return jump1+jump2;
+}
+int countDistinctWayToClimbStair(long long nStairs)
+{
+    //  Write your code here.
+	return recur(nStairs);;
+}
