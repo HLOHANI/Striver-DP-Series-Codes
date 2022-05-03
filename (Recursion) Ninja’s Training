@@ -1,0 +1,30 @@
+int maxPoints(int day,int last,vector<vector<int>> &points)
+{
+	if(day==0){
+		int maxim=0;
+		for(int task=0;task<3;task++)
+		{
+			if(task!=last)
+			{
+				maxim=max(maxim,points[0][task]);
+			}
+		}
+		return maxim;
+	}
+	
+	int maxim=0;
+	for(int task=0;task<3;task++)
+	{
+		if(task!=last)
+		{
+			int point=points[day][task]+maxPoints(day-1,task,points);
+			maxim=max(maxim,point);
+		}
+	}
+	return maxim;
+}
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    // Write your code here.
+	return maxPoints(n-1,3,points);
+}
