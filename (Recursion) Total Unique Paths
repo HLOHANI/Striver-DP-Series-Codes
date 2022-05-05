@@ -1,0 +1,13 @@
+#include <bits/stdc++.h> 
+int uniPath(int i,int j)
+{
+	if(i==0 && j==0) return 1;
+	if(i<0 || j<0) return 0;
+	int up=uniPath(i-1,j);
+	int left=uniPath(i,j-1);
+	return up+left;
+}
+int uniquePaths(int m, int n) {
+	// Write your code here.
+	return uniPath(m-1,n-1);
+}
