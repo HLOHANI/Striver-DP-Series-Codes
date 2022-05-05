@@ -1,3 +1,4 @@
+int mod = (int)(1e9 + 7);
 int uniPath(int i, int j, vector< vector< int> > &mat)
 {
 	if(i>=0 && j>=0 && mat[i][j]==-1) return 0;
@@ -7,7 +8,7 @@ int uniPath(int i, int j, vector< vector< int> > &mat)
 	int up=uniPath(i-1,j,mat);
 	int left=uniPath(i,j-1,mat);
 	
-	return up+left;
+	return (up+left)%mod;
 }
 int mazeObstacles(int n, int m, vector< vector< int> > &mat) {
     // Write your code here
