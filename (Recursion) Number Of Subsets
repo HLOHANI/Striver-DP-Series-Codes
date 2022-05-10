@@ -1,0 +1,17 @@
+int f(int i,vector<int> &num, int tar)
+{
+	if(tar == 0) return 1;
+	if(i == 0) return num[i]==tar;
+	
+	int notPick = f(i-1,num,tar);
+	int pick=0;
+	if(num[i]<=tar) pick = f(i-1,num,tar-num[i]);
+	
+	return pick+notPick;
+}
+int findWays(vector<int> &num, int tar)
+{
+    // Write your code here.
+	int size = num.size();
+	return f(size-1,num,tar);
+}
