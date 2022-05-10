@@ -1,0 +1,22 @@
+int findWays(vector<int> &num, int tar)
+{
+    // Write your code here.
+	int n = num.size();
+	vector<vector<int>> dp(n ,vector<int> (tar+1,0));
+	for(int i=0; i<n ;i++) dp[i][0]=1;
+	
+	if(num[0]<=tar) dp[0][num[0]] = 1;
+	
+	for(int ind = 1;ind < n;ind++)
+	{
+		for(int target = 0; target <= tar ;target++)
+		{
+			int notPick = dp[ind-1][target];
+			int pick=0;
+			if(num[ind] <= target) pick = dp[ind-1][target-num[ind]];
+			
+			dp[ind][target]= pick+notPick;
+		}
+	}
+	return dp[n-1][tar];
+}
