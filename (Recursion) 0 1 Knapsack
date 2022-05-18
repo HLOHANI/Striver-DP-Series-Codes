@@ -1,0 +1,24 @@
+int f(int ind,int w,vector<int> &weight,vector<int> &value)
+{
+	if(ind == 0)
+	{
+		if(weight[ind] <= w)
+			return value[ind];
+		else
+			return 0;
+	}
+	
+	int notPick = f(ind-1,w,weight,value);
+	int pick=-1e8;
+	if(weight[ind] <= w)
+	{
+		pick = value[ind]+f(ind-1,w-weight[ind],weight,value);
+	}
+	
+	return max(pick,notPick);
+}
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+	return f(n-1,maxWeight,weight,value);
+}
