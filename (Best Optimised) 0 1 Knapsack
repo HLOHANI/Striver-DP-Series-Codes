@@ -1,0 +1,21 @@
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+	vector<int> prev(maxWeight+1,0);
+	for(int w = weight[0];w<=maxWeight;w++) prev[w] = value[0];
+	
+	for(int i=1;i<n;i++)
+	{
+		for(int w=maxWeight;w>=0;w--)
+		{
+	        int notPick = prev[w];
+	        int pick=-1e8;
+	        if(weight[i] <= w)
+			{
+				pick = value[i]+prev[w-weight[i]];
+			}
+			prev[w] = max(pick,notPick);
+		}
+	}
+	return prev[maxWeight];
+}
