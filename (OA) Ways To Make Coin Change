@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+long countWaysToMakeChange(int *deno, int n, int value)
+{
+    //Write your code here
+	vector<long> prev(value+1,0),cur(value+1,0);
+	for(int tar = 0;tar<=value;tar++)
+	{
+		if(tar % deno[0] == 0) prev[tar] = 1;
+		else
+			prev[tar] = 0;
+	}
+	for(int ind = 1; ind<n; ind++)
+	{
+		for(int tar = 0; tar<= value; tar++)
+		{
+			long notPick = 0 + prev[tar];
+			long pick = 0;
+			if(deno[ind] <= tar)
+				pick = cur[tar-deno[ind]];
+			
+			cur[tar] = pick + notPick;
+		}
+		prev = cur;
+	}
+	return prev[value];
+}
