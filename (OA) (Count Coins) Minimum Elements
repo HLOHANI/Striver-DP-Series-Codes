@@ -1,0 +1,30 @@
+int minimumElements(vector<int> &num, int x)
+{
+    // Write your code here.
+	int n=num.size();
+	vector<int> prev(x+1,0),cur(x+1,0);
+	for(int tar = 0;tar <= x; tar++)
+	{
+		if(tar % num[0] == 0) prev[tar] = tar / num[0];
+		else
+			prev[tar]=1e9;
+	}
+	for(int ind = 1;ind<n;ind++)
+	{
+		for(int tar = 0; tar<=x ;tar++)
+		{
+			int notPick = 0 + prev[tar];
+			int pick = 1e9;
+			if(tar >= num[ind])
+				pick = 1 + cur[tar-num[ind]];
+			
+			cur[tar] = min(pick,notPick);
+		}
+		prev = cur;
+	}
+	int ans = prev[x];
+	if(ans >= 1e9)
+		return -1;
+	else
+		return ans;
+}
