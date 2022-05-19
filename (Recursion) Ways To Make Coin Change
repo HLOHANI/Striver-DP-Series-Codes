@@ -1,0 +1,18 @@
+long f(int ind,int tar, int *deno)
+{
+	if(ind == 0)
+	{
+		return (tar % deno[0] == 0);
+	}
+	long notPick = 0 + f(ind-1,tar,deno);
+	long pick = 0;
+	if(deno[ind] <= tar)
+		pick = f(ind,tar-deno[ind],deno);
+	
+	return pick+notPick;
+}
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    //Write your code here
+	return f(n-1,value,denominations);
+}
