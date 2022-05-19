@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+long f(int ind,int tar, int *deno,vector<vector<long>> &dp)
+{
+	if(ind == 0)
+	{
+		return (tar % deno[0] == 0);
+	}
+	if(dp[ind][tar]!=-1) return dp[ind][tar];
+	
+	long notPick = 0 + f(ind-1,tar,deno,dp);
+	long pick = 0;
+	if(deno[ind] <= tar)
+		pick = f(ind,tar-deno[ind],deno,dp);
+	
+	return dp[ind][tar]=pick+notPick;
+}
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    //Write your code here
+	vector<vector<long>> dp(n,vector<long> (value+1,-1));
+	return f(n-1,value,denominations,dp);
+}
