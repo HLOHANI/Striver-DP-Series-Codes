@@ -1,0 +1,29 @@
+int targetSum(int n, int target, vector<int>& arr) {
+    // Write your code here.
+	int totsum = 0;
+	for(auto &it: arr) totsum += it;
+	if(!(totsum-target >= 0 && (totsum - target)%2 == 0))
+		return 0;
+	int tar = (totsum-target)/2;
+	vector<int> prev(tar+1,0),cur(tar+1,0);
+	
+	if(arr[0]==0) prev[0]=2;
+	else
+		prev[0]=1;
+	if(arr[0]!=0 && arr[0]<=tar) prev[arr[0]]=1;
+	
+	for(int ind = 1;ind<n;ind++){
+		for(int t =0; t<=tar ; t++)
+		{
+			int notPick = prev[t];
+			int pick=0;
+			if(t>=arr[ind])
+				pick=prev[t-arr[ind]];
+			
+			cur[t]=pick+notPick;
+		}
+		prev = cur;
+	}
+	return prev[tar];
+}
+
