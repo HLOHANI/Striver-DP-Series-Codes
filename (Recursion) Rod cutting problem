@@ -1,0 +1,20 @@
+int f(int ind,vector<int> &price,int tarlen)
+{
+    if(ind == 0){
+        return price[0]*tarlen;
+    }
+    
+    int notTake = f(ind-1,price,tarlen);
+    int take = -1e8;
+    int rodlen = ind+1;
+    if(rodlen<= tarlen)
+        take = price[ind] + f(ind,price,tarlen-rodlen);
+    
+    return max(take,notTake);
+}
+int cutRod(vector<int> &price, int n)
+{
+	// Write your code here.
+    return f(n-1,price,n);
+}
+
