@@ -1,0 +1,22 @@
+int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight)
+{
+    // Write Your Code Here.
+    vector<vector<int>> dp(n, vector<int> (w+1,0));
+    for(int tar = 0; tar <= w ; tar++){
+        dp[0][tar] = ((int)(tar/weight[0]))*profit[0];
+    }
+    for(int ind = 1;ind<n;ind++)
+    {
+        for(int tar=0;tar<=w;tar++)
+        {
+            int notTake = dp[ind-1][tar];
+            int take = 0;
+            if(weight[ind] <= tar)
+                take = profit[ind]+ dp[ind][tar-weight[ind]];
+            
+            dp[ind][tar] = max(take,notTake); 
+        }
+    }
+    return dp[n-1][w];
+}
+
