@@ -1,0 +1,26 @@
+int cutRod(vector<int> &price, int n)
+{
+	// Write your code here.
+    vector<int> prev(n+1,0),cur(n+1,0);
+    for(int tar = 0; tar<= n;tar++)
+    {
+        prev[tar] = price[0]*tar;
+    }
+    
+    for(int ind = 1;ind<n;ind++)
+    {
+        for(int tar = 0;tar<=n;tar++)
+        {
+            int notTake = prev[tar];
+            int take = -1e8;
+            int rodlen = ind+1;
+            if(rodlen<= tar)
+                take = price[ind] + cur[tar-rodlen];
+    
+            cur[tar] = max(take,notTake);
+        }
+        prev = cur;
+    }
+    return prev[n];
+}
+
