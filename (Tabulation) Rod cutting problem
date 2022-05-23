@@ -1,0 +1,25 @@
+int cutRod(vector<int> &price, int n)
+{
+	// Write your code here.
+    vector<vector<int>> dp(n, vector<int> (n+1,0));
+    for(int tar = 0; tar<= n;tar++)
+    {
+        dp[0][tar] = price[0]*tar;
+    }
+    
+    for(int ind = 1;ind<n;ind++)
+    {
+        for(int tar = 0;tar<=n;tar++)
+        {
+            int notTake = dp[ind-1][tar];
+            int take = -1e8;
+            int rodlen = ind+1;
+            if(rodlen<= tar)
+                take = price[ind] + dp[ind][tar-rodlen];
+    
+            dp[ind][tar] = max(take,notTake);
+        }
+    }
+    return dp[n-1][n];
+}
+
