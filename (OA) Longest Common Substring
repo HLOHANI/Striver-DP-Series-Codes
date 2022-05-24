@@ -1,0 +1,24 @@
+int lcs(string &s, string &t){
+	//Write your code here.
+    //Write your code here
+    int len1 = s.length();
+    int len2 = t.length();
+    vector<int> prev(len2+1,0),cur(len2+1,0);
+    
+    for(int ind2 =0;ind2 <= len2 ;ind2++) prev[ind2]=0;
+    int ans=0;
+    for(int ind1=1;ind1<=len1;ind1++)
+    {
+        for(int ind2=1;ind2<=len2;ind2++)
+        {
+            if(s[ind1-1]==t[ind2-1]){
+                cur[ind2]= 1+ prev[ind2-1];
+                ans= max(ans,cur[ind2]);
+            }
+            else 
+                cur[ind2]=0;
+        }
+        prev = cur;
+    }
+    return ans;
+}
