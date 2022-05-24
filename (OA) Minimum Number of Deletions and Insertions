@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+int lcs(string s, string t)
+{
+    //Write your code here
+    int len1 = s.length();
+    int len2 = t.length();
+    vector<int> prev(len2+1,0),cur(len2+1,0);
+    
+    for(int ind2 =0;ind2 <= len2 ;ind2++) prev[ind2]=0;
+    
+    for(int ind1=1;ind1<=len1;ind1++)
+    {
+        for(int ind2=1;ind2<=len2;ind2++)
+        {
+            if(s[ind1-1]==t[ind2-1]) cur[ind2]= 1+ prev[ind2-1];
+            
+            else 
+                cur[ind2]=max(prev[ind2],cur[ind2-1]);
+        }
+        prev = cur;
+    }
+    return prev[len2];
+}
+int canYouMake(string &str, string &ptr)
+{
+    // Write your code here.
+    int len1 = str.length();
+    int len2 = ptr.length();
+    return len1 + len2 - (2*lcs(str,ptr));
+}
