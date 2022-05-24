@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+int lcs(string s, string t)
+{
+    //Write your code here
+    int len1 = s.length();
+    int len2 = t.length();
+    vector<vector<int>> dp(len1+1, vector<int> (len2+1,0));
+    for(int ind1 =0;ind1 <= len1 ;ind1++) dp[ind1][0]=0;
+    for(int ind2 =0;ind2 <= len2 ;ind2++) dp[0][ind2]=0;
+    
+    for(int ind1=1;ind1<=len1;ind1++)
+    {
+        for(int ind2=1;ind2<=len2;ind2++)
+        {
+            if(s[ind1-1]==t[ind2-1]) dp[ind1][ind2]= 1+ dp[ind1-1][ind2-1];
+            
+            else 
+                dp[ind1][ind2]=max(dp[ind1-1][ind2],dp[ind1][ind2-1]);
+        }
+    }
+    return dp[len1][len2];
+}
+int longestPalindromeSubsequence(string s)
+{
+    // Write your code here.
+    string Srev = s;
+    reverse(Srev.begin(),Srev.end());
+    return lcs(s,Srev);
+}
+int minInsertion(string &str)
+{
+    // Write your code here.
+    int len = str.length();
+    return len - longestPalindromeSubsequence(str);
+}
