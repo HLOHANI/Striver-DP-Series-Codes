@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+int f(int l1,int l2,string &s, string &t,vector<vector<int>> &dp)
+{
+    if(l1==0 || l2==0) return 0;
+    if(dp[l1][l2]!=-1) return dp[l1][l2];
+    if(s[l1-1] == t[l2-1]) return dp[l1][l2]= 1 + f(l1-1,l2-1,s,t,dp);
+    
+    return dp[l1][l2] = max(f(l1-1,l2,s,t,dp),f(l1,l2-1,s,t,dp));
+}
+int lcs(string &s, string &t)
+{
+    int l1 = s.length();
+    int l2 = t.length();
+    vector<vector<int>> dp(l1+1,vector<int> (l2+1,-1));
+    return f(l1,l2,s,t,dp);
+}
+int longestPalindromeSubsequence(string s)
+{
+    // Write your code here.
+    string t = s;
+    reverse(t.begin(),t.end());
+    return lcs(s,t);
+}
