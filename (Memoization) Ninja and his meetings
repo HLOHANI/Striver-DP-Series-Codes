@@ -1,0 +1,16 @@
+int f(int ind,vector<int>& meetings,vector<int> &dp)
+{
+    if(ind < 0) return 0;
+    
+    if(dp[ind]!=-1) return dp[ind];
+    
+    int notTake = f(ind-1,meetings,dp);
+    int take = meetings[ind] + f(ind-2,meetings,dp);
+    
+    return dp[ind] = max(take,notTake);
+}
+int maxMinutes(vector<int>& meetings, int n) {
+	// Write your code here.
+    vector<int> dp(n,-1);
+    return f(n-1,meetings,dp);
+}
